@@ -15,9 +15,7 @@ model_path = os.path.join(os.path.dirname(__file__), 'model.pkl')
 with open(model_path, 'rb') as file:
     model = pickle.load(file)
 
-model_path = os.path.join(os.path.dirname(__file__), 'model.pkl')
-with open(model_path, 'rb') as file:
-    model = pickle.load(file)
+
 
 @app.route('/')
 def index():
@@ -32,12 +30,12 @@ def predict():
     listed_count=int(request.form['listed_count'])
     favourites_count=int(request.form['favourites_count'])
     lang=int(request.form['lang'])
-    default_profile=int(request.form['default_profile'])
+    sex=int(request.form['sexcode'])
     
 
     
     
-    feature_array=[[statuses_count,followers_count,friends_count,listed_count,favourites_count,lang,default_profile]]
+    feature_array=[[statuses_count,followers_count,friends_count,favourites_count,listed_count,sex,lang]]
     #print(features_array)
 
 
@@ -59,7 +57,7 @@ def predict():
     print(prediction)
 
     # Output the prediction
-    if prediction == 0:
+    if prediction == 1:
         return render_template("fake.html", prediction="Fake Profile...!") 
     else:
         return render_template("real.html", prediction="Real Profile...!")
